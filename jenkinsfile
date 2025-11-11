@@ -70,10 +70,10 @@ pipeline {
 
   post {
     success {
-      echo "✅ Deployment complete. Open: http://<EC2_PUBLIC_IP>"
+      echo " Deployment complete. Open: http://<EC2_PUBLIC_IP>"
     }
     failure {
-      echo "❌ Failed. Check the console logs."
+      echo " Failed. Check the console logs."
     }
   }
 }
