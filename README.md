@@ -544,14 +544,14 @@ Cause : Wrong username.
 
 Fix   : For Amazon Linux use `ec2-user`, not `ubuntu`.
 
-```
+
 ERROR : ssh-agent could not find credentials
 
 Cause : Incorrect credential ID.
 
 Fix   : Ensure Jenkins credential ID matches ID in Jenkinsfile.
 
-```
+
 ERROR : Docker permission denied
 
 Cause : Jenkins user not in docker group.
@@ -561,14 +561,14 @@ Fix   :
       sudo usermod -aG docker jenkins
 
       sudo systemctl restart jenkins
-```
+
 
 ERROR : Terraform AMI error
 
 Cause : Region mismatch.
 
 Fix   : Always select correct AMI for region.
----
+
 
 ## WHAT I UNDERSTOOD FROM THIS PROJECT
 
@@ -582,7 +582,7 @@ I learned:
 
 This project improved my understanding of DevOps workflow connectivity.
 
----
+
 
 ## 👨‍💻 About Me
 
@@ -605,5 +605,3 @@ This document provides step-by-step instructions for anyone — even beginners w
 > “Even the simplest project done perfectly speaks louder than a complex one left incomplete.”
 
 ⭐ If you liked this project, give it a **star** on GitHub!
-
----
