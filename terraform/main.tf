@@ -38,7 +38,7 @@ resource "aws_security_group" "web_sg" {
 }
 
 resource "aws_instance" "web" {
-  ami                    = "ami-0f58b397bc5c1f2e8" # Amazon Linux 2 for ap-south-1
+  ami                    = "ami-0dee22c13ea7a9a16" # Amazon Linux 2 for ap-south-1
   instance_type          = "t2.micro"
   key_name               = "mohan1"  #  Replace with your actual key pair name
   vpc_security_group_ids = [aws_security_group.web_sg.id]
