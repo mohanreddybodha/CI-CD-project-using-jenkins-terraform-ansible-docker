@@ -226,6 +226,22 @@ Follow setup steps and install suggested plugins.
 
 ---
 
+## CONFIGURE CREDENTIALS IN JENKINS
+
+Open Jenkins → Manage Jenkins → Credentials → Add Credentials
+
+Add:
+
+1. DockerHub username + password  
+   *Enter dockerhub username and password or Token(Recommanded)
+   *(ID: aws-ssh-key)
+
+2. SSH Private Key 
+   *Enter instance username(ec2-user) and direct paste the .pem file contents
+   *(ID: aws-ssh-key)
+
+---
+
 ## **CLONE GITHUB REPOSITORY IN JENKINS**
 
 1. Create a New Item → Choose "Pipeline".
@@ -275,21 +291,6 @@ Now every time you push code to GitHub, Jenkins will automatically trigger the p
 
 ---
 
-## CONFIGURE CREDENTIALS IN JENKINS
-
-Open Jenkins → Manage Jenkins → Credentials → Add Credentials
-
-Add:
-
-1. DockerHub username + password  
-   *Enter dockerhub username and password or Token(Recommanded)
-   *(ID: aws-ssh-key)
-
-2. SSH Private Key 
-   *Enter instance username(ec2-user) and direct paste the .pem file contents
-   *(ID: aws-ssh-key)
-
----
 
 ## **TERRAFORM FILE** (main.tf inside terraform folder)
 
