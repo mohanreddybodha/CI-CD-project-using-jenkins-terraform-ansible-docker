@@ -560,9 +560,9 @@ Cause : Jenkins user not in docker group.
 
 Fix   :
 
-   sudo usermod -aG docker jenkins 
+      sudo usermod -aG docker jenkins 
   
-   sudo systemctl restart jenkins
+      sudo systemctl restart jenkins
 
 
 
