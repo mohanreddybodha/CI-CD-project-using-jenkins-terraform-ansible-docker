@@ -1,0 +1,43 @@
+- name: Deploy Flask UI via Docker
+  hosts: web
+  become: yes
+  vars:
+    image_name: "mohanreddybodha/flask-ui:latest"
+    container_name: "flask-ui"
+    host_port: 80
+    container_port: 5000
+
+  tasks:
+    - name: Install docker
+      yum:
+        name: docker
+        state: present
+
+    - name: Start & enable docker
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Add ec2-user to docker group (no sudo for docker)
+      user:
+        name: ec2-user
+        groups: docker
+        append: yes
+
+    - name: Pull image
+      command: docker pull {{ image_name }}
+
+    - name: Stop old container if exists
+      shell: |
+        if [ "$(docker ps -q -f name={{ container_name }})" ]; then
+          docker stop {{ container_name }} && docker rm {{ container_name }}
+        fi
+      ignore_errors: yes
+
+    - name: Run container
+      command: >
+        docker run -d --restart always
+        -p {{ host_port }}:{{ container_port }}
+        --name {{ container_name }}
+        {{ image_name }}

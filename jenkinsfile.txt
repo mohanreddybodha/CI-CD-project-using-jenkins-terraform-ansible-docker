@@ -1,0 +1,79 @@
+pipeline {
+  agent any
+
+  environment {
+    DOCKERHUB_USER = "mohanreddybodha"
+    IMAGE_NAME     = "flask-ui"
+    IMAGE_TAG      = "latest"
+    APP_DIR        = "app"
+    TF_DIR         = "terraform"
+    ANS_DIR        = "ansible"
+    SSH_USER       = "ec2-user"
+    SSH_CRED       = "aws-ssh-key"    // Jenkins Credentials ID (SSH private key)
+    DOCKER_CRED    = "dockerhub-creds"// Jenkins Credentials ID (username+password)
+  }
+
+  options { timestamps(); timeout(time: 30, unit: 'MINUTES') }
+
+  stages {
+    stage('Checkout') {
+      steps { checkout scm }
+    }
+
+    stage('Build & Push Docker Image') {
+      steps {
+        dir(APP_DIR) {
+          script {
+            docker.withRegistry('https://registry.hub.docker.com', DOCKER_CRED) {
+              def img = docker.build("${DOCKERHUB_USER}/${IMAGE_NAME}:${IMAGE_TAG}")
+              img.push()
+            }
+          }
+        }
+      }
+    }
+
+    stage('Terraform Apply') {
+      when { changeset "**/terraform/**" }
+      steps {
+        dir(TF_DIR) {
+          sh """
+            terraform init -input=false
+            terraform apply -auto-approve -input=false
+          """
+        }
+      }
+    }
+
+    stage('Generate Ansible Inventory') {
+      steps {
+        script {
+          def ip = sh(script: "cd ${TF_DIR} && terraform output -raw public_ip", returnStdout: true).trim()
+          writeFile file: "${ANS_DIR}/inventory.ini",
+                   text: "[web]\n${ip} ansible_user=${SSH_USER}\n"
+          echo "Target EC2 IP => ${ip}"
+        }
+      }
+    }
+
+    stage('Deploy with Ansible') {
+      steps {
+        sshagent(credentials: [SSH_CRED]) {
+          dir(ANS_DIR) {
+            sh "ansible --version"
+            sh "ansible-playbook -i inventory.ini deploy.yml --ssh-extra-args='-o StrictHostKeyChecking=no'"
+          }
+        }
+      }
+    }
+  }
+
+  post {
+    success {
+      echo "✅ Deployment complete. Open: http://<EC2_PUBLIC_IP>"
+    }
+    failure {
+      echo "❌ Failed. Check the console logs."
+    }
+  }
+}

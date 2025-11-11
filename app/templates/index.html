@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Flask UI • DevOps Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="card">
+    <h1>🚀 DevOps Flask + UI</h1>
+    <p>This app was provisioned with <b>Terraform</b>, configured by <b>Ansible</b>, and deployed with <b>Docker</b> via <b>Jenkins</b>.</p>
+
+    <div class="row">
+      <button id="pingBtn">Health Check</button>
+      <span id="pingResult">Waiting…</span>
+    </div>
+
+    <form id="fbForm">
+      <input id="name" placeholder="Your name" />
+      <input id="message" placeholder="Your feedback" />
+      <button type="submit">Submit</button>
+    </form>
+
+    <pre id="fbResult"></pre>
+  </div>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
