@@ -1,9 +1,8 @@
 
----
-
 ### ***CI/CD Pipeline using Jenkins, Terraform, Ansible and Docker to Deploy Flask Application on AWS***
-
+---
 *ABOUT THIS PROJECT*:
+
 This project demonstrates how to build and deploy a web application automatically using CI/CD. The project uses a host EC2 machine to run Jenkins, Terraform, Ansible, and Docker, and then automatically creates another EC2 instance where the Flask application will be deployed inside a Docker container. The entire process happens with one click or by pushing code to GitHub.
 
 The main goal of this project is to understand how automation happens in real world DevOps workflows, and how different DevOps tools connect with each other.
@@ -13,6 +12,7 @@ The main goal of this project is to understand how automation happens in real wo
 ## **ARCHITECTURE / WORKING FLOW** 
 
 Developer pushes code to GitHub →
+
 Jenkins pipeline starts automatically →
 
 1. Jenkins builds Docker image of the Flask app.
@@ -32,32 +32,37 @@ Jenkins pipeline starts automatically →
 ## **TOOLS USED**
 
 AWS EC2       - To host servers.
+
 Jenkins       - To automate the pipeline.
+
 Docker        - To containerize and run the application.
+
 Terraform     - To create AWS resources automatically.
+
 Ansible       - To configure the EC2 instance and deploy the container.
+
 GitHub        - To store project source code.
+
 Python Flask  - Simple web UI application.
 
 ---
 
-## **SETUP PROCESS STEP BY STEP** 
+## **SET UP PROCESS STEP BY STEP** 
 
-STEP 1: LAUNCH JENKINS HOST SERVER
+*LAUNCH JENKINS HOST SERVER*
 
-Instance Type: t2.medium
+Instance Type : t2.medium
 
-AMI: Amazon Linux 2
+AMI           : Amazon Linux 2
 
 
-*WE NEED AN IAM ROLE*
+## **CONFIGURATION OF IAM ROLE**
 
 Terraform needs permission to create EC2, Security Groups, etc.
 Instead of using **AWS Access Keys** (NOT recommended), we will attach an **IAM Role** to the EC2 instance running Jenkins.
 
 This IAM Role grants permissions to Terraform automatically.
 
----
 
 ## **STEP 1: Create IAM Role**
 
@@ -114,22 +119,21 @@ Click **Create Role**.
 
 ## **INSTALL DEPENDENCIES (GIT, DOCKER, TERRAFORM, ANSIBLE, JENKINS)**
 
-Update system
+**Update system**
 
 ```
 sudo yum update -y
 ```
 
-Install Git
+**Install Git**
 
 ```
 sudo yum install git -y
 
-git -v   
-# Verify git installation
+git -v     # To Verify git installation
 ```
 
-Install Docker
+**Install Docker**
 
 ```
 sudo yum install docker -y
@@ -151,10 +155,11 @@ sudo usermod -aG docker ec2-user
 
 (Logout and login again to apply permissions)
 
-Install Jenkins
+**Install Jenkins**
 
 ```
-sudo yum install java-17-amazon-corretto -y          #To install Jenkins we need to install java 17 before because it is a java based application.
+sudo yum install java-17-amazon-corretto -y         
+#To install Jenkins we need to install java 17 before because it is a java based application.
 
 java -version 
 # Verify Java installation
@@ -185,7 +190,7 @@ sudo systemctl enable Jenkins
 # Enable Jenkins to start automatically on server boot
 ```
 
-INSTALL TERRAFORM
+**INSTALL TERRAFORM**
 
 ```
 sudo yum install -y yum-utils shadow-utils     # Dependencies
@@ -197,7 +202,7 @@ sudo yum install terraform -y     # Install Terraform
 
 ---
 
-INSTALL ANSIBLE
+**INSTALL ANSIBLE**
 
 ```
 sudo amazon-linux-extras install epel -y     # Enable extra repo
@@ -205,7 +210,7 @@ sudo amazon-linux-extras install epel -y     # Enable extra repo
 sudo yum install ansible -y     # Install Ansible
 ```
 
-Access Jenkins from your browser:
+## Access Jenkins from your browser:
 
 ```
 http://<your-ec2-public-ip>:8080
@@ -247,7 +252,7 @@ jenkinsfile
 
 ---
 
-## **CONFIGURE WEBHOOK FOR AUTOMATION**
+## CONFIGURE WEBHOOK FOR AUTOMATION
 
 1. Go to GitHub → Repository Settings → Webhooks → Add Webhook
 2. Payload URL:
@@ -270,7 +275,7 @@ Now every time you push code to GitHub, Jenkins will automatically trigger the p
 
 ---
 
-## **CONFIGURE CREDENTIALS IN JENKINS**
+## CONFIGURE CREDENTIALS IN JENKINS
 
 Open Jenkins → Manage Jenkins → Credentials → Add Credentials
 
@@ -533,21 +538,36 @@ CMD ["python", "app.py"]
 ## **COMMON ERRORS AND FIXES**
 
 ERROR : Permission denied (publickey)
+
 Cause : Wrong username.
+
 Fix   : For Amazon Linux use `ec2-user`, not `ubuntu`.
 
+
+
 ERROR : ssh-agent could not find credentials
+
 Cause : Incorrect credential ID.
+
 Fix   : Ensure Jenkins credential ID matches ID in Jenkinsfile.
 
+
+
 ERROR : Docker permission denied
+
 Cause : Jenkins user not in docker group.
+
 Fix   :
+
 sudo usermod -aG docker jenkins
+
 sudo systemctl restart jenkins
 
+
 ERROR : Terraform AMI error
+
 Cause : Region mismatch.
+
 Fix   : Always select correct AMI for region.
 
 ---
@@ -577,6 +597,7 @@ This project improved my understanding of DevOps workflow connectivity.
 **Email:** [mohanreddybodha05@gmail.com](mailto:mohanreddybodha05@gmail.com)
 
 **LinkedIn:** [https://www.linkedin.com/in/mohan-reddy-boda-0560722b7/](https://www.linkedin.com/in/mohan-reddy-boda-0560722b7/)
+
 
 
 ## END OF GUIDE
