@@ -44,12 +44,13 @@ Python Flask  - Simple web UI application.
 ## **SETUP PROCESS STEP BY STEP** 
 
 STEP 1: LAUNCH JENKINS HOST SERVER
+
 Instance Type: t2.medium
+
 AMI: Amazon Linux 2
 
 
-
-## **WE NEED AN IAM ROLE**
+*WE NEED AN IAM ROLE*
 
 Terraform needs permission to create EC2, Security Groups, etc.
 Instead of using **AWS Access Keys** (NOT recommended), we will attach an **IAM Role** to the EC2 instance running Jenkins.
