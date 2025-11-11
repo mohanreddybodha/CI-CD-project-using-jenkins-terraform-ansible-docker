@@ -544,33 +544,30 @@ Cause : Wrong username.
 
 Fix   : For Amazon Linux use `ec2-user`, not `ubuntu`.
 
-
-
+```
 ERROR : ssh-agent could not find credentials
 
 Cause : Incorrect credential ID.
 
 Fix   : Ensure Jenkins credential ID matches ID in Jenkinsfile.
 
-
-
+```
 ERROR : Docker permission denied
 
 Cause : Jenkins user not in docker group.
 
 Fix   :
 
-sudo usermod -aG docker jenkins
+      sudo usermod -aG docker jenkins
 
-sudo systemctl restart jenkins
-
+      sudo systemctl restart jenkins
+```
 
 ERROR : Terraform AMI error
 
 Cause : Region mismatch.
 
 Fix   : Always select correct AMI for region.
-
 ---
 
 ## WHAT I UNDERSTOOD FROM THIS PROJECT
