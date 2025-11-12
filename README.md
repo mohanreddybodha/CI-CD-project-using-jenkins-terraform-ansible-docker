@@ -324,24 +324,6 @@ Search names above.
 
 If they are listed → ✅ Good to go.
 
-## CONFIGURE CREDENTIALS IN JENKINS
-
-Open Jenkins → Manage Jenkins → Credentials → Add Credentials
-
-Add:
-
-1. Kind: Username with password  
-  
-   *Enter dockerhub username and password or Token(Recommanded)
-  
-   *(ID: dockerhub-creds)
-
-2. Kind: SSH Username with private key 
-   
-   *Enter instance username(ec2-user) and direct paste the .pem file contents
-   
-   *(ID: aws-ssh-key)
-
 ---
 
 ## **CLONE GITHUB REPOSITORY IN JENKINS**
