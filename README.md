@@ -226,6 +226,104 @@ Follow setup steps and install suggested plugins.
 
 ---
 
+**REQUIRED PLUGINS** (with explanation):
+
+1. Pipeline
+
+
+
+Purpose: Allows us to write Jenkinsfile-based pipelines.
+
+Without this, your Jenkinsfile won’t run.
+
+
+2. Docker Pipeline
+
+
+
+Purpose: Enables Jenkins to build and push Docker images using docker.build, docker.withRegistry, etc.
+
+Needed for the Build & Push Docker Image stage.
+
+
+3. Credentials Binding Plugin
+
+
+
+Purpose: Allows Jenkins to securely store and use DockerHub credentials and SSH Key.
+
+Used in pipeline via withCredentials or sshagent.
+
+
+4. SSH Agent Plugin
+
+
+
+Purpose: Needed for Ansible deployment step.
+
+Allows Jenkins to SSH into EC2 using the SSH key stored in Jenkins.
+
+Required for:
+sshagent(credentials: ['aws-ssh-key'])
+
+
+5. Git Plugin
+
+
+
+Purpose: Required to pull your project from GitHub.
+
+Used automatically when your pipeline does checkout scm.
+
+
+6. AnsiColor Plugin (optional but useful)
+
+
+
+Purpose: Makes logs readable with color formatting.
+
+
+
+---
+
+HOW TO INSTALL PLUGINS IN JENKINS:
+
+Step 1: Open Jenkins Dashboard
+Step 2: Click → Manage Jenkins
+Step 3: Click → Plugins (or Manage Plugins depending on version)
+Step 4: Go to Available tab
+Step 5: Search and install the following:
+
+Search and Install:
+
+Pipeline
+
+Docker Pipeline
+
+Credentials Binding Plugin
+
+SSH Agent Plugin
+
+Git Plugin
+
+AnsiColor
+
+Step 6: After selecting → Click Install
+
+Step 7: Restart Jenkins when asked.
+
+
+---
+
+VERIFY IF PLUGINS INSTALLED:
+
+1. Dashboard → Manage Jenkins
+
+
+2. Plugin Manager → Installed
+Search names above.
+If they are listed → ✅ Good to go.
+
 ## CONFIGURE CREDENTIALS IN JENKINS
 
 Open Jenkins → Manage Jenkins → Credentials → Add Credentials
