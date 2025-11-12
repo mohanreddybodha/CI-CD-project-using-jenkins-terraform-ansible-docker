@@ -164,7 +164,7 @@ sudo yum install java-17-amazon-corretto -y
 java -version 
 # Verify Java installation
 
-sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat stable/jenkins.repo  
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo  
 # Download and save the official Jenkins repository configuration so yum can fetch Jenkins packages
 
 
@@ -177,16 +177,16 @@ sudo yum install fontconfig java-17-amazon-corretto -y
 sudo yum install jenkins -y 
 # Install Jenkins package from the Jenkins yum repository 
 
-sudo usermod -aG docker Jenkins
+sudo usermod -aG docker jenkins
 # Add the Jenkins user to the 'docker' group so Jenkins can run Docker commands without permission errors
 
 sudo systemctl restart docker
 # Restart Docker service to update group permissions changes
 
-sudo systemctl start Jenkins    
+sudo systemctl start jenkins    
 # Start Jenkins service 
 
-sudo systemctl enable Jenkins     
+sudo systemctl enable jenkins     
 # Enable Jenkins to start automatically on server boot
 ```
 
@@ -194,8 +194,8 @@ sudo systemctl enable Jenkins
 
 ```
 sudo yum install -y yum-utils shadow-utils     # Dependencies
-
-sudo yum-config-manager --add-repo [https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo](https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo)   # Terraform repo
+  
+sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo    # # Terraform repo
 
 sudo yum install terraform -y     # Install Terraform
 ```
@@ -205,8 +205,6 @@ sudo yum install terraform -y     # Install Terraform
 **INSTALL ANSIBLE**
 
 ```
-sudo amazon-linux-extras install epel -y     # Enable extra repo
-
 sudo yum install ansible -y     # Install Ansible
 ```
 
@@ -332,13 +330,13 @@ Open Jenkins → Manage Jenkins → Credentials → Add Credentials
 
 Add:
 
-1. DockerHub username + password  
+1. Kind: Username with password  
   
    *Enter dockerhub username and password or Token(Recommanded)
   
-   *(ID: aws-ssh-key)
+   *(ID: dockerhub-creds)
 
-2. SSH Private Key 
+2. Kind: SSH Username with private key 
    
    *Enter instance username(ec2-user) and direct paste the .pem file contents
    
@@ -361,6 +359,7 @@ Add:
 ```
 https://github.com/mohanreddybodha/CI-CD-project-using-jenkins-terraform-ansible-docker.git
 ```
+* Branch: main
 
 * Script Path:
 
