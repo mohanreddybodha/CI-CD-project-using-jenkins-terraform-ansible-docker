@@ -652,7 +652,7 @@ ERROR : ssh-agent could not find credentials
 
 Cause : Incorrect credential ID.
 
-Fix   : Ensure Jenkins credential ID matches ID in Jenkinsfile.
+Fix   : Ensure Jenkins credential ID matches ID in Jenkinsfile. If still shows the error then delete credentials and add in job -> configure -> Pipeline ->Add Credentials section.
 
 
 
@@ -674,6 +674,13 @@ ERROR : Terraform AMI error
 Cause : Region mismatch.
 
 Fix   : Always select correct AMI for region.
+
+
+**TIP:** Find the errors from console output. If you are unable to find the errors from the console then take the help of Gen-AI(Chat GPT, Copilot...).
+
+
+**NOTE:** I cross checked this project twice. If you follow my instructions properly you can run this pipeline SUCCESSFULLY.
+
 
 
 ## WHAT I UNDERSTOOD FROM THIS PROJECT
