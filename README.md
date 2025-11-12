@@ -558,7 +558,6 @@ pipeline {
     }
 
     stage('Terraform Apply') {
-      when { changeset "**/terraform/**" }
       steps {
         dir(TF_DIR) {
           sh """
